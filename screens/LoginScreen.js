@@ -4,6 +4,7 @@ import FormInput from '../components/Input';
 import FormButton from '../components/Button';
 import SocialButton from '../components/SocialButton';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 
 
@@ -11,8 +12,16 @@ const LoginScreen = ({navigation}) =>{
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   
-  const handleLogin = () => {
-   
+  const handleLogin = async () => {
+    if(email && password){
+      try{
+        await signInWithEmailAndPassword(auth, email, password);
+        navigation.navigate('Home');
+      }
+      catch(error){
+        console.log(error)
+      }
+    }
   }
 
   return (
